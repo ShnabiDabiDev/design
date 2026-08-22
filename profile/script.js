@@ -14,15 +14,14 @@ const app = document.querySelector('.app');
 // nickEl.textContent = defaultUser.nick;
 
 async function loaduserdata () {
+    const zxc = 'get'
 
-    const response = await fetch('/api/profile/:id', {
+    const response = await fetch('backend2-production-046d.up.railway.app/api/profile/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        credentials: "include",
-        body: JSON.stringify({
-        })
+        body: JSON.stringify({data: zxc})
     });
 
     const data = await response.json()
@@ -30,12 +29,7 @@ async function loaduserdata () {
     if (!data) {
         return
     } else {
-        console.log(data.username)
-        
-        userIdEl.textContent = data.userid;
-        nickEl.textContent = data.username;
-        name1.textContent = data.username
-        name2.textContent = data.username
+        console.log(data)
     }
 }
 
