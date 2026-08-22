@@ -16,7 +16,7 @@ const app = document.querySelector('.app');
 async function loaduserdata () {
     const zxc = 'get'
 
-    const response = await fetch('backend2-production-046d.up.railway.app/api/profile/', {
+    const response = await fetch("https://backend2-production-046d.up.railway.app/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
