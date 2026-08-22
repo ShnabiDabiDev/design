@@ -1,0 +1,1290 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Cards + Filters</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html,
+        body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f3ff 0%, #e8ecf4 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+            position: relative;
+        }
+
+        /* ----- ФОНОВЫЕ ПЯТНА ----- */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.45;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: #dbeafe;
+            top: -20%;
+            left: -15%;
+            animation: moveBlob1 30s infinite alternate ease-in-out;
+        }
+
+        .blob-2 {
+            width: 700px;
+            height: 700px;
+            background: #e9d5ff;
+            bottom: -25%;
+            right: -20%;
+            animation: moveBlob2 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveBlob1 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(300px, 200px) scale(1.2);
+            }
+        }
+
+        @keyframes moveBlob2 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(-200px, -300px) scale(1.1);
+            }
+        }
+
+        /* ----- ОСНОВНОЙ ВРАППЕР ----- */
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        /* ----- ШАПКА ----- */
+        .top-header {
+            width: 860px;
+            max-width: 95vw;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 14px 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            padding: 4px 8px 4px 4px;
+            margin-left: -8px;
+            border-radius: 12px;
+            transition: background 0.2s ease;
+        }
+
+        .header-left:hover {
+            background: #f8fafc;
+        }
+
+        .mini-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e6e0f6;
+            color: #5b21b6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .user-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nickname {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .header-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b7280;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .header-btn:hover {
+            background: #f1f5f9;
+            color: #111827;
+        }
+
+        .header-btn i {
+            font-size: 14px;
+        }
+
+        /* ----- ЦЕНТРАЛЬНЫЙ КОНТЕЙНЕР ----- */
+        .app-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        /* ----- ЛЕВЫЙ ФИЛЬТР ----- */
+        .filter-left {
+            position: absolute;
+            left: 17px;
+            top: 700px;
+            transform: translateY(-50%);
+            width: 140px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 18px 14px 16px;
+            box-shadow:
+                0 12px 32px rgba(0, 0, 0, 0.06),
+                0 4px 12px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition:
+                transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.4s ease,
+                box-shadow 0.3s ease;
+            z-index: 5;
+        }
+
+        .filter-left:hover {
+            transform: translateY(-50%) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .filter-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-label i {
+            font-size: 12px;
+            color: #8b5cf6;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b7280;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition:
+                background 0.25s ease,
+                color 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1.5px solid transparent;
+            position: relative;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .filter-option:hover {
+            background: rgba(255, 255, 255, 0.7);
+            color: #1f2937;
+            transform: translateX(4px);
+        }
+
+        .filter-option .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+            transition:
+                background 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .filter-option .label {
+            flex: 1;
+        }
+
+        .filter-option .check {
+            opacity: 0;
+            transform: scale(0.3) rotate(-40deg);
+            transition:
+                opacity 0.25s ease,
+                transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: #22c55e;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .filter-option.active {
+            background: rgba(34, 197, 94, 0.13);
+            border-color: rgba(34, 197, 94, 0.35);
+            color: #16a34a;
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.10);
+        }
+
+        .filter-option.active .dot {
+            background: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.20);
+        }
+
+        .filter-option.active .check {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .filter-option.active:hover {
+            background: rgba(34, 197, 94, 0.20);
+            transform: translateX(4px);
+        }
+
+        /* Анимация клика фильтра */
+        .filter-option.filter-click {
+            animation: filterClick 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes filterClick {
+            0% {
+                transform: scale(1);
+            }
+
+            35% {
+                transform: scale(0.91);
+            }
+
+            70% {
+                transform: scale(1.055);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .filter-option.active .dot {
+            animation: dotJump 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes dotJump {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+            }
+
+            40% {
+                transform: scale(2.2);
+                box-shadow: 0 0 0 12px rgba(34, 197, 94, 0.2);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+            }
+        }
+
+        /* ----- ПРАВЫЙ ФИЛЬТР ----- */
+        .filter-right {
+            position: absolute;
+            right: 10px;
+            top: 700px;
+            transform: translateY(-50%);
+            width: 140px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 18px 14px 16px;
+            box-shadow:
+                0 12px 32px rgba(0, 0, 0, 0.06),
+                0 4px 12px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition:
+                transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.4s ease,
+                box-shadow 0.3s ease;
+            z-index: 5;
+        }
+
+        .filter-right:hover {
+            transform: translateY(-50%) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .price-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 2px;
+        }
+
+        .price-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .price-group label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #9ca3af;
+            margin-left: 2px;
+        }
+
+        .price-input-wrap {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            padding: 0 10px;
+            border: 1.5px solid rgba(209, 213, 219, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .price-input-wrap:focus-within {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.10);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .price-input-wrap .currency {
+            font-size: 12px;
+            font-weight: 600;
+            color: #9ca3af;
+            margin-right: 4px;
+        }
+
+        .price-input-wrap input {
+            width: 100%;
+            padding: 8px 0 8px 2px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1f2937;
+            outline: none;
+            min-width: 0;
+        }
+
+        .price-input-wrap input::placeholder {
+            color: #d1d5db;
+            font-weight: 400;
+        }
+
+        .price-input-wrap input:focus {
+            animation: inputPulse 0.5s ease;
+        }
+
+        @keyframes inputPulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* ----- КНОПКА ЛАЙКА ----- */
+        .action-area {
+            position: absolute;
+            right: -130px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .like-btn {
+            width: 58px;
+            height: 58px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition:
+                transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.2s;
+            position: relative;
+            z-index: 10;
+        }
+
+        .like-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .like-btn i {
+            font-size: 24px;
+            color: #aeb4c0;
+            transition: color 0.2s ease;
+        }
+
+        .like-btn.liked i {
+            color: #ff3040;
+        }
+
+        .like-btn.liked {
+            box-shadow: 0 8px 20px rgba(255, 48, 64, 0.25);
+            background: #ffffff;
+        }
+
+        @keyframes heartPop {
+            0% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.4);
+            }
+
+            50% {
+                transform: scale(0.85);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .like-btn.liked i {
+            animation: heartPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes ringPulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        .like-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #ff3040;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .like-btn.liked::before {
+            animation: ringPulse 0.6s ease-out forwards;
+        }
+
+        .like-btn::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #ff3040,
+                #ff00cc,
+                #ff8c00,
+                #ff3040
+            );
+            filter: blur(12px) brightness(1.4);
+            opacity: 0;
+            z-index: -1;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .like-btn.liked::after {
+            animation: gradientGlow 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes gradientGlow {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+                filter: blur(8px) brightness(2);
+            }
+
+            100% {
+                transform: scale(4);
+                opacity: 0;
+                filter: blur(30px) brightness(0.8);
+            }
+        }
+
+        .particles-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            color: #ff3040;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .particle.active {
+            animation: particleFly 0.8s ease-out forwards;
+        }
+
+        @keyframes particleFly {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(0.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(720deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ----- КВАДРАТ ----- */
+        .content-square {
+            width: 400px;
+            height: 560px;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.04),
+                0 10px 20px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
+            will-change: transform;
+            user-select: none;
+            z-index: 2;
+        }
+
+        .content-square::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 560px;
+            background-image: conic-gradient(
+                from var(--angle),
+                #ff3040,
+                #ff00cc,
+                #ff8c00,
+                #ff3040
+            );
+            filter: blur(0.5rem);
+            opacity: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 32px;
+            z-index: -2;
+            padding: 10px;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .content-square::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 560px;
+            background: #ffffff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 32px;
+            z-index: -1;
+        }
+
+        .content-square.play::after {
+            animation:
+                opacitygradient1 1s ease-in-out forwards,
+                spingradient 1s ease-in-out forwards;
+        }
+
+        .content-square.stop::after {
+            animation: opacitygradient2 0.5s linear forwards;
+        }
+
+        @keyframes spingradient {
+            from {
+                --angle: 0deg;
+            }
+
+            to {
+                --angle: 360deg;
+            }
+        }
+
+        @keyframes opacitygradient1 {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes opacitygradient2 {
+            from {
+                opacity: 1;
+                padding: 10px;
+            }
+
+            to {
+                opacity: 0;
+                padding: 0;
+            }
+        }
+
+        .square-avatar {
+            width: 110px;
+            height: 110px;
+            background: #e6e0f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5b21b6;
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .square-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .square-subtitle {
+            font-size: 13px;
+            font-weight: 500;
+            color: #9ca3af;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hint-text {
+            position: absolute;
+            bottom: 24px;
+            color: #d1d5db;
+            font-size: 12px;
+            font-weight: 500;
+            animation: fadeHint 2s infinite;
+        }
+
+        @keyframes fadeHint {
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-4px);
+            }
+        }
+
+        /* ----- АНИМАЦИИ ПЕРЕЛИСТЫВАНИЯ ----- */
+        .slide-out-up {
+            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .slide-in-down {
+            animation: slideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-140px) scale(0.95);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideDown {
+            0% {
+                transform: translateY(140px) scale(0.95);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ----- ЭФФЕКТ СВАЙПА ----- */
+        .scroll-particles-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .scroll-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #d1d5db;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-particle.active {
+            animation: scrollFly 1.4s ease-out forwards;
+        }
+
+        @keyframes scrollFly {
+            0% {
+                transform: translate(0, 0) scale(0.5);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .scroll-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 100%;
+            height: 100%;
+            border-radius: 32px;
+            border: 3px solid #9ca3af;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .scroll-ring.active {
+            animation: grayRingPulse 0.9s ease-out forwards;
+        }
+
+        @keyframes grayRingPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        /* ----- АДАПТИВНОСТЬ ----- */
+        @media (max-width: 860px) {
+            .filter-left {
+                left: -150px;
+                width: 120px;
+                padding: 14px 12px 12px;
+            }
+
+            .filter-right {
+                right: -150px;
+                width: 120px;
+                padding: 14px 12px 12px;
+            }
+
+            .filter-option {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .price-input-wrap input {
+                font-size: 12px;
+                padding: 6px 0;
+            }
+
+            .action-area {
+                right: -110px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .top-header {
+                width: 95vw;
+                padding: 10px 14px;
+            }
+
+            .header-btn span {
+                display: none;
+            }
+
+            .content-square {
+                width: 85vw;
+                height: 120vw;
+                max-width: 400px;
+                max-height: 560px;
+            }
+
+            .filter-left {
+                position: fixed;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100px;
+                padding: 12px 10px 10px;
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(20px);
+                border-radius: 16px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            }
+
+            .filter-left:hover {
+                transform: translateY(-50%) scale(1.02);
+            }
+
+            .filter-right {
+                position: fixed;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100px;
+                padding: 12px 10px 10px;
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(20px);
+                border-radius: 16px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            }
+
+            .filter-right:hover {
+                transform: translateY(-50%) scale(1.02);
+            }
+
+            .filter-label {
+                font-size: 9px;
+                letter-spacing: 0.4px;
+                margin-bottom: 8px;
+            }
+
+            .filter-option {
+                font-size: 11px;
+                padding: 5px 8px;
+                gap: 6px;
+            }
+
+            .filter-option .dot {
+                width: 6px;
+                height: 6px;
+            }
+
+            .filter-option .check {
+                font-size: 11px;
+            }
+
+            .price-group label {
+                font-size: 9px;
+            }
+
+            .price-input-wrap {
+                padding: 0 8px;
+                border-radius: 10px;
+            }
+
+            .price-input-wrap input {
+                font-size: 11px;
+                padding: 5px 0;
+            }
+
+            .price-input-wrap .currency {
+                font-size: 10px;
+            }
+
+            .action-area {
+                right: -40px;
+                top: 50%;
+            }
+
+            .like-btn {
+                width: 44px;
+                height: 44px;
+            }
+
+            .like-btn i {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .filter-left {
+                width: 80px;
+                padding: 10px 8px 8px;
+                left: 6px;
+            }
+
+            .filter-right {
+                width: 80px;
+                padding: 10px 8px 8px;
+                right: 6px;
+            }
+
+            .filter-option {
+                font-size: 10px;
+                padding: 4px 6px;
+                gap: 4px;
+            }
+
+            .filter-option .dot {
+                width: 5px;
+                height: 5px;
+            }
+
+            .filter-option .check {
+                font-size: 9px;
+            }
+
+            .filter-label {
+                font-size: 8px;
+                letter-spacing: 0.3px;
+            }
+
+            .price-group label {
+                font-size: 8px;
+            }
+
+            .price-input-wrap input {
+                font-size: 10px;
+                padding: 4px 0;
+            }
+
+            .price-input-wrap .currency {
+                font-size: 9px;
+            }
+
+            .price-input-wrap {
+                padding: 0 6px;
+                border-radius: 8px;
+            }
+
+            .action-area {
+                right: -30px;
+            }
+
+            .like-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .like-btn i {
+                font-size: 16px;
+            }
+        }
+        .center-image {
+            position: absolute;
+            z-index: -1;
+
+            width: 400px;
+            height: 560px;
+        }
+        body {
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Фоновые пятна -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <div class="main-wrapper">
+
+        <!-- Шапка -->
+        <div class="top-header">
+            <div class="header-left" onclick="window.location.href='/profile'">
+                <div class="mini-avatar">Г</div>
+
+                <div class="user-text">
+                    <span class="user-label">null</span>
+                    <span class="nickname">null</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a
+                    href="#"
+                    onclick="window.location.href='/chat'; return false;"
+                    class="header-btn"
+                >
+                    <i class="fa-regular fa-comment"></i>
+                    <span>чат</span>
+                </a>
+
+                <a
+                    href="#"
+                    onclick="window.location.href='/hiry'; return false;"
+                    class="header-btn"
+                >
+                    <i class="fa-solid fa-video"></i>
+                    <span>видео</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Центр -->
+        <div class="app-container">
+
+            <!-- ЛЕВЫЙ ФИЛЬТР -->
+            <div class="filter-left" id="filterLeft">
+
+                <div class="filter-label">
+                    <i class="fa-solid fa-sliders-h"></i>
+                    filters
+                </div>
+
+                <div class="filter-options">
+
+                    <div class="filter-option" data-value="scripter">
+                        <span class="dot"></span>
+                        <span class="label">скриптер</span>
+                        <span class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+                    </div>
+
+                    <div class="filter-option" data-value="builder">
+                        <span class="dot"></span>
+                        <span class="label">билдер</span>
+                        <span class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+                    </div>
+
+                    <div class="filter-option" data-value="vfx">
+                        <span class="dot"></span>
+                        <span class="label">vfx</span>
+                        <span class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ПРАВЫЙ ФИЛЬТР -->
+            <div class="filter-right" id="filterRight">
+
+                <div class="filter-label">
+                    <i class="fa-solid fa-tag"></i>
+                    price
+                </div>
+
+                <div class="price-inputs">
+
+                    <div class="price-group">
+                        <label>от</label>
+
+                        <div class="price-input-wrap">
+                            <span class="currency">$</span>
+                            <input
+                                type="number"
+                                id="priceMin"
+                                placeholder="0"
+                                min="0"
+                                step="1"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="price-group">
+                        <label>до</label>
+
+                        <div class="price-input-wrap">
+                            <span class="currency">$</span>
+                            <input
+                                type="number"
+                                id="priceMax"
+                                placeholder="∞"
+                                min="0"
+                                step="1"
+                            />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Квадрат -->
+            <div class="content-square" id="squareCard">
+                <img class="center-image" src="Fly_close.jpg" alt="">
+                <div class="scroll-ring" id="scrollRing"></div>
+
+                <div class="square-avatar">Г</div>
+
+                <div class="square-title">
+                    
+                </div>
+
+                <div class="square-subtitle">
+                    
+                </div>
+
+                <div class="hint-text">
+                    
+                </div>
+
+            </div>
+
+            <!-- Частицы -->
+            <div
+                class="scroll-particles-wrapper"
+                id="scrollParticlesWrapper"
+            ></div>
+
+            <!-- Лайк -->
+            <div class="action-area">
+
+                <div class="like-btn" id="likeBtn">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+
+                <div
+                    class="particles-container"
+                    id="particlesContainer"
+                ></div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./script.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shorts</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="profile-panel">
+                <div class="avatar">Г</div>
+                <div class="profile-text">
+                    <strong>GamerShorts</strong>
+                    <span>@shorts</span>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button class="upload-button-header" type="button" id="headerUploadBtn">📤 Upload</button>
+                <button class="profile-button" type="button">
+                    Профиль
+                </button>
+                <button class="chat-button" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 10.5C8 12.9853 10.0147 15 12.5 15C13.594 15 14.6026 14.5819 15.3286 13.9145L18.7093 15.0008C19.0488 15.1439 19.4243 14.9368 19.4243 14.5656V9.43438C19.4243 9.06319 19.0488 8.85609 18.7093 8.99922L15.3286 10.0855C14.6026 9.4181 13.594 9 12.5 9C10.0147 9 8 11.0147 8 13.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12.5 3.5C7.80558 3.5 3.99999 6.96554 3.99999 11C3.99999 12.6783 4.56633 14.2169 5.54289 15.4838C5.54851 15.4925 5.55416 15.5011 5.55984 15.5097C5.17074 16.5103 4.80647 17.5248 4.49999 18.5L4.45999 18.6299C4.41754 18.8585 4.556 19.0741 4.78624 19.0989C5.04697 19.1271 5.30558 19.1366 5.55494 19.1366C7.03361 19.1366 8.42579 18.7459 9.58591 18.0719C10.5174 18.6458 11.5013 18.9999 12.5 18.9999C17.1944 18.9999 21 15.5344 21 11.4999C21 7.4654 17.1944 3.9999 12.5 3.9999V3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Чат
+                </button>
+            </div>
+        </header>
+
+        <main class="content-area">
+            <section class="main-grid-shell">
+                <div class="main-grid" id="mainGrid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

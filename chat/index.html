@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глобальный Чат</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header__content">
+                <div class="header__user">
+                    <div class="avatar" id="userAvatar">
+                        <span id="avatarLetter">A</span>
+                    </div>
+                    <div class="user-info">
+                        <p class="user-label">Пользователь</p>
+                        <h1 class="user-name" id="userName">Гость</h1>
+                    </div>
+                </div>
+                <div class="header__actions">
+                    <div class="tabs">
+                        <a class="tabprofile" href="">профиль</a>
+                        <a class="tabhiry" href="" >видео</a>
+                    </div>
+                    <div class="header__status" id="statusBadge">
+                        <span class="status-dot"></span>
+                        <span class="status-text">online</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="chat-wrapper">
+            <div class="messages-container" id="messagesContainer">
+                <div class="empty-state">
+                    <div class="empty-icon">💬</div>
+                    <p>Чат пустой</p>
+                    <span>Начните общение!</span>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <form class="message-form" id="messageForm">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        class="message-input" 
+                        placeholder="Напишите сообщение..." 
+                        autocomplete="off"
+                    />
+                    <button type="submit" class="send-btn" id="sendBtn">
+                        <span class="send-icon">→</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

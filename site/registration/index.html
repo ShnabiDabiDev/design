@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script src="script.js"></script>
+    <div class="card">
+        <div class="brand">
+            <div class="logo">A</div>
+            <div>
+                <h1>Создать аккаунт</h1>
+                <p>Введите имя и пароль</p>
+            </div>
+        </div>
+
+        <form id="registrationForm" action="/chat" method="post">
+            <div class="field">
+                <label  for="username">Имя</label>
+                <input class="label-text" type="text" id="username" name="username" placeholder="Ваше имя" required>
+            </div>
+
+            <div class="field">
+                <label for="password">Пароль</label>
+                <input class="label-password" type="password" id="password" name="password" placeholder="••••••••" minlength="8" required>
+                <p class="hint">Минимум 8 символов</p>
+            </div>
+
+            <button type="submit" class="button-register">Зарегистрироваться</button>
+        </form>
+    </div>
+</body>
+</html>
