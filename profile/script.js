@@ -14,12 +14,12 @@ const app = document.querySelector('.app');
 // nickEl.textContent = defaultUser.nick;
 
 async function loaduserdata () {
-    const response = await fetch("https://backend2-production-046d.up.railway.app/", {
+    const response = await fetch("https://backend2-production-046d.up.railway.app/api/profile", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({data: 'get'})
+        body: JSON.stringify({getdata: 'get'})
     });
 
     const data = await response.json()
