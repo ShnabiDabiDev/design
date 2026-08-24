@@ -154,14 +154,14 @@ tabProfile.addEventListener('click', (event) => {
   event.preventDefault();
 
   if (profilelink) {
-    window.location.href = `/profile/${profilelink}`;
+    window.location.href = '/profile/';
   }
 
 })
 
 tabHiry.addEventListener('click', (event) => {
   event.preventDefault();
-  window.location.href = `/hiry`;
+  window.location.href = '/hiry';
 })
 
 
