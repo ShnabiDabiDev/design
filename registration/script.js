@@ -13,7 +13,7 @@ async function registerUser(nickname, password) {
 
         const data = await response.json();
 
-        if (data.success) {
+        if (data.redirect) {
             console.log('Client: Registration successful');
             window.location.href = `/profile`
         } else {
