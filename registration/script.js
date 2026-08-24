@@ -1,11 +1,10 @@
 async function registerUser(nickname, password) {
     try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch('https://backend2-production-046d.up.railway.app/api/registration', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
             body: JSON.stringify({
                 username: nickname,
                 password: password
@@ -16,7 +15,7 @@ async function registerUser(nickname, password) {
 
         if (data.success) {
             console.log('Client: Registration successful');
-            window.location.href = `/profile/${data.userId}`
+            window.location.href = `/profile`
         } else {
             console.error('Client: Registration failed:', data);
         }
@@ -26,25 +25,25 @@ async function registerUser(nickname, password) {
     }
 }
 
-async function checktoken () {
-  const result = await fetch('/api/check', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: "include",
-    body: JSON.stringify({})
-  })
+// async function checktoken () {
+//   const result = await fetch('/api/check', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     credentials: "include",
+//     body: JSON.stringify({})
+//   })
 
-  const data = await result.json()
-  console.log(data)
-  if (data.success) {
-    window.location.href = `/profile/${data.userid}`
-    console.log(data.userid)
-  }
-}
+//   const data = await result.json()
+//   console.log(data)
+//   if (data.success) {
+//     window.location.href = `/profile/${data.userid}`
+//     console.log(data.userid)
+//   }
+// }
 
-checktoken()
+// checktoken()
 
 window.addEventListener('load', function () {
     const button = document.querySelector('.button-register')
