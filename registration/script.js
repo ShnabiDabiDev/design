@@ -15,7 +15,7 @@ async function registerUser(nickname, password) {
 
         if (data.redirect) {
             console.log('Client: Registration successful');
-            window.location.href = `/profile`
+            window.location.href = `/profile/${data.id}`
         } else {
             console.error('Client: Registration failed:', data);
         }
