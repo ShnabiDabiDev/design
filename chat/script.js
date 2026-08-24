@@ -6,9 +6,9 @@ const userNameDisplay = document.getElementById('userName');
 const avatarLetter = document.getElementById('avatarLetter');
 const userAvatar = document.getElementById('userAvatar');
 
-const socket = io("http://localhost:3000", {
-  withCredentials: true
-});
+// const socket = io("http://localhost:3000", {
+//   withCredentials: true
+// });
 
 var currentUser = 'null'
 
@@ -86,37 +86,37 @@ messageForm.addEventListener('submit', (e) => {
   const text = messageInput.value.trim();
   if (!text) return;
   
-  socket.emit("send", text)
+  // socket.emit("send", text)
   messageInput.value = '';
   messageInput.focus();
 });
 
-socket.on('connect_error', (err) => {
-  if (err.message === 'NO_COOKIE') {
-    window.location.href = '/registration'
-  }
-  if (err.message === "DB_RESPONSE") {
-    window.location.href = '/registration'
-  }
-})
+// socket.on('connect_error', (err) => {
+//   if (err.message === 'NO_COOKIE') {
+//     window.location.href = '/registration'
+//   }
+//   if (err.message === "DB_RESPONSE") {
+//     window.location.href = '/registration'
+//   }
+// })
 
-socket.on("token_expired", () => {
-  document.cookie = "jwt=; Max-Age=0; path=/";
-  window.location.href = "/registration";
-});
+// socket.on("token_expired", () => {
+//   document.cookie = "jwt=; Max-Age=0; path=/";
+//   window.location.href = "/registration";
+// });
 
-socket.on('userdata', (data) => {
-  userNameDisplay.textContent = data.username;
-  avatarLetter.textContent = data.username.charAt(0).toUpperCase();
-  const colors = generateAvatarColor(data.username);
-  userAvatar.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%)`;
-  userData = data;
-})
+// socket.on('userdata', (data) => {
+//   userNameDisplay.textContent = data.username;
+//   avatarLetter.textContent = data.username.charAt(0).toUpperCase();
+//   const colors = generateAvatarColor(data.username);
+//   userAvatar.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%)`;
+//   userData = data;
+// })
 
-socket.on("message", (data) => {
-  let isOwn = data.user === userData.username;
-  addMessage(data.message, data.user, isOwn);
-});
+// socket.on("message", (data) => {
+//   let isOwn = data.user === userData.username;
+//   addMessage(data.message, data.user, isOwn);
+// });
 
 messageInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey) {
@@ -127,25 +127,25 @@ messageInput.addEventListener('keydown', (e) => {
 
 let profilelink
 
-async function loaduserdata() {
-  const response = await fetch('/api/profile/:id', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      credentials: "include",
-      body: JSON.stringify({
-      })
-  });
+// async function loaduserdata() {
+//   const response = await fetch('/api/profile/:id', {
+//       method: 'POST',
+//       headers: {
+//           'Content-Type': 'application/json'
+//       },
+//       credentials: "include",
+//       body: JSON.stringify({
+//       })
+//   });
 
-  const data = await response.json()
+//   const data = await response.json()
 
-  if (data) {
-    profilelink = data.userid
-  }
-}
+//   if (data) {
+//     profilelink = data.userid
+//   }
+// }
 
-loaduserdata()
+// loaduserdata()
 
 const tabProfile = document.querySelector('.tabprofile');
 const tabHiry = document.querySelector('.tabhiry');
