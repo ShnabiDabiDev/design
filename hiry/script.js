@@ -127,13 +127,13 @@ headerUploadBtn.addEventListener('click', () => {
     // socket.emit('hiryinstance', imageSrc);
 });
 
-// chatButton.addEventListener('click', () => {
-//     window.location.href = '/chat';
-// })
+chatButton.addEventListener('click', () => {
+    window.location.href = '/chat';
+})
 
-// profileButton.addEventListener('click', () => {
-//     window.location.href = `/profile/${userid}`;
-// })
+profileButton.addEventListener('click', () => {
+    window.location.href = '/profile';
+})
 
 // socket.on('gethiry', (data) => {
 //     getAllGridCard()

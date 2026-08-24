@@ -154,7 +154,7 @@ tabProfile.addEventListener('click', (event) => {
   event.preventDefault();
 
   if (profilelink) {
-    window.location.href = '/profile/';
+    window.location.href = '/profile';
   }
 
 })
