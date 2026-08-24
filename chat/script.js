@@ -150,19 +150,19 @@ let profilelink
 const tabProfile = document.querySelector('.tabprofile');
 const tabHiry = document.querySelector('.tabhiry');
 
-tabProfile.addEventListener('click', (event) => {
-  event.preventDefault();
+// tabProfile.addEventListener('click', (event) => {
+//   event.preventDefault();
 
-  if (profilelink) {
-    window.location.href = '/profile';
-  }
+//   if (profilelink) {
+//     window.location.href = '/profile';
+//   }
 
-})
+// })
 
-tabHiry.addEventListener('click', (event) => {
-  event.preventDefault();
-  window.location.href = '/hiry';
-})
+// tabHiry.addEventListener('click', (event) => {
+//   event.preventDefault();
+//   window.location.href = '/hiry';
+// })
 
 
 // Focus input on load
