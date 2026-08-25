@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Профиль — Гость</title>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+		<div class="site-top" role="navigation" aria-label="Верхняя панель">
+			<div class="container">
+				<nav class="nav-right">
+					<a class="nav-item" href="/chat" role="button" tabindex="0"><span class="icon">💬</span>чат</a>
+					<a class="nav-item" href="/videos" role="button" tabindex="0"><span class="icon">🎥</span>видео</a>
+				</nav>
+			</div>
+		</div>
+
+		<div class="bg-animated" aria-hidden="true"></div>
+		<div class="page-overlay" aria-hidden="true"></div>
+
+		<div class="app">
+		<header class="topbar">
+			<div class="left">
+				<div class="avatar" aria-hidden="true"><span>Г</span></div>
+				<div class="meta">
+					<div class="role">ПОЛЬЗОВАТЕЛЬ</div>
+					<div class="name1">Гость</div>
+				</div>
+			</div>
+      
+		</header>
+
+		<main class="content">
+			<section class="profile-card" role="region" aria-label="Профиль пользователя">
+				<div class="avatar-lg" aria-hidden="true"><span>Г</span></div>
+				<div class="profile-meta">
+					<div class="name2">Гостьm</div>
+					<div class="role">ПОЛЬЗОВАТЕЛЬ</div>
+				</div>
+
+				<div class="fields">
+					<div class="field">
+						<div class="label">ID пользователя</div>
+						<div class="value-row">
+							<div class="value" id="userId">user_0001</div>
+							<button class="copy" id="copyId">Копировать</button>
+						</div>
+					</div>
+
+					<div class="field">
+						<div class="label">Никнейм</div>
+						<div class="value" id="nick">Гость</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
+
