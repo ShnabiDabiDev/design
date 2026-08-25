@@ -12,22 +12,29 @@ const app = document.querySelector('.app');
 
 // userIdEl.textContent = defaultUser.id;
 // nickEl.textContent = defaultUser.nick;
-console.log("heh")
-async function loaduserdata () {
-    const response = await fetch("https://backend2-production-046d.up.railway.app/api/profile/${id}", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
-    });
 
-    const data = await response.json()
-    
-    if (!data) {
-        return
+async function loaduserdata () {
+    const path = window.location.pathname; 
+    const id = path.split("/")[2]; 
+
+    if (!/^\d+$/.test(id)) {
+        // window.location.href = "/profile"; 
     } else {
-        console.log(data)
+        const response = await fetch("https://backend2-production-046d.up.railway.app/api/profile/getid", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id})
+        });
+
+        const data = await response.json()
+        
+        if (!data) {
+            return
+        } else {
+            console.log(data)
+        }
     }
 }
 
