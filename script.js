@@ -30,10 +30,13 @@ async function loaduserdata () {
 
         const data = await response.json()
         
-        if (!data) {
-            return
+        if (data.dbres) {
+            name1.textContent = data.dbres.username
+            name2.textContent = data.dbres.username
+            nickEl.textContent = data.dbres.username
+            userIdEl.textContent = data.dbres.id
         } else {
-            console.log(data)
+            console.log('cant find user')
         }
     }
 }
