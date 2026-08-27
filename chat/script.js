@@ -8,7 +8,9 @@ const userAvatar = document.getElementById('userAvatar');
 
 var currentUser = 'null'
 
-const socket = io('https://design-30f.pages.dev')
+const socket = io('https://design-30f.pages.dev', {
+  transports: ["polling", "websocket"]
+})
 
 userNameDisplay.textContent = currentUser;
 avatarLetter.textContent = currentUser.charAt(0).toUpperCase();
@@ -125,7 +127,7 @@ messageInput.addEventListener('keydown', (e) => {
 
 let profilelink
 
-socket.on('connection', () => {
+socket.on('connection', (data) => {
   console.log('connect')
 })
 
