@@ -8,7 +8,7 @@ const userAvatar = document.getElementById('userAvatar');
 
 var currentUser = 'null'
 
-const socket = io('https://design-30f.pages.dev', {})
+const socket = io('https://design-30f.pages.dev')
 
 userNameDisplay.textContent = currentUser;
 avatarLetter.textContent = currentUser.charAt(0).toUpperCase();
