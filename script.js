@@ -35,6 +35,11 @@ async function loaduserdata () {
             name2.textContent = data.dbres.username
             nickEl.textContent = data.dbres.username
             userIdEl.textContent = data.dbres.id
+
+            console.log(name1, name1.textContent)
+            console.log(name2, name2.textContent)
+            console.log(nickEl, nickEl.textContent)
+            console.log(nickIdEl, nickIdEl.textContent)
         } else {
             console.log('cant find user')
         }
