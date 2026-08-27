@@ -127,8 +127,12 @@ messageInput.addEventListener('keydown', (e) => {
 
 let profilelink
 
+socket.on('hiclient', (data) => {
+  console.log(data)
+})
+
 socket.on('connection', (data) => {
-  console.log('connect')
+  console.log('listen server')
 })
 
 // async function loaduserdata() {
