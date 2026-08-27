@@ -8,7 +8,7 @@ const userAvatar = document.getElementById('userAvatar');
 
 var currentUser = 'null'
 
-const socket = io('https://design-30f.pages.dev', {
+const socket = io('backend2-production-046d.up.railway.app', {
   transports: ["polling", "websocket"]
 })
 
