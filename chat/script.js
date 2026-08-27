@@ -6,9 +6,7 @@ const userNameDisplay = document.getElementById('userName');
 const avatarLetter = document.getElementById('avatarLetter');
 const userAvatar = document.getElementById('userAvatar');
 
-// const socket = io("http://localhost:3000", {
-//   withCredentials: true
-// });
+
 
 var currentUser = 'null'
 

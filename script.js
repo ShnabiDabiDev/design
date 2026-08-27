@@ -84,7 +84,6 @@ copyBtn.addEventListener('click', async () => {
 		copyBtn.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:420,easing:'cubic-bezier(.2,.9,.3,1)'});
 		setTimeout(()=> copyBtn.textContent = prev,1300);
 	} catch (err) {
-		// fallback
 		const inp = document.createElement('input');
 		inp.value = text; document.body.appendChild(inp); inp.select(); document.execCommand('copy'); inp.remove();
 		copyBtn.textContent = 'Скопировано!';
