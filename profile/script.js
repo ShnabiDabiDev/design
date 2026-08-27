@@ -33,7 +33,10 @@ async function loaduserdata () {
         if (!data) {
             return
         } else {
-            console.log(data)
+            name1.textContent = data.dbres.username
+            name2.textContent = data.dbres.username
+            nickEl.textContent = data.dbres.username
+            userIdEl.textContent = data.dbres.id
         }
     }
 }
