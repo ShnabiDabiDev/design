@@ -6,9 +6,9 @@ const userNameDisplay = document.getElementById('userName');
 const avatarLetter = document.getElementById('avatarLetter');
 const userAvatar = document.getElementById('userAvatar');
 
-
-
 var currentUser = 'null'
+
+const socket = io('https://design-30f.pages.dev', {})
 
 userNameDisplay.textContent = currentUser;
 avatarLetter.textContent = currentUser.charAt(0).toUpperCase();
@@ -124,6 +124,10 @@ messageInput.addEventListener('keydown', (e) => {
 });
 
 let profilelink
+
+socket.on('connection', () => {
+  console.log('connect')
+})
 
 // async function loaduserdata() {
 //   const response = await fetch('/api/profile/:id', {
