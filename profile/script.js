@@ -30,7 +30,7 @@ async function loaduserdata () {
 
         const data = await response.json()
         
-        if (!data) {
+        if (!data.dbres) {
             return
         } else {
             name1.textContent = data.dbres.username

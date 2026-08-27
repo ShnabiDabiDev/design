@@ -30,18 +30,18 @@ async function loaduserdata () {
 
         const data = await response.json()
         
-        if (data.dbres) {
-            name1.textContent = data.dbres.username
-            name2.textContent = data.dbres.username
-            nickEl.textContent = data.dbres.username
-            userIdEl.textContent = data.dbres.id
+        if (!data) {
+            // name1.textContent = data.dbres.username
+            // name2.textContent = data.dbres.username
+            // nickEl.textContent = data.dbres.username
+            // userIdEl.textContent = data.dbres.id
 
-            console.log(name1, name1.textContent)
-            console.log(name2, name2.textContent)
-            console.log(nickEl, nickEl.textContent)
-            console.log(nickIdEl, nickIdEl.textContent)
+            // console.log(name1, name1.textContent)
+            // console.log(name2, name2.textContent)
+            // console.log(nickEl, nickEl.textContent)
+            // console.log(nickIdEl, nickIdEl.textContent)
         } else {
-            console.log('cant find user')
+            console.log('redirect profile says !data')
         }
     }
 }
